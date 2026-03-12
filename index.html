@@ -288,6 +288,10 @@
                     <p class="text-slate-300 text-2xl font-semibold leading-relaxed">Built for universal networks. Use the Voxeon AI Core to define your institution's punctuality logic.</p>
                     
                     <div class="glass-card p-12 rounded-[4rem] border-emerald-500/20">
+                        <div class="space-y-4 mb-8">
+                            <label class="text-xs font-black uppercase tracking-widest text-emerald-400">Target Organization Name</label>
+                            <input type="text" id="target-org-name" placeholder="Client Entity Name" class="w-full bg-slate-900 border border-white/20 rounded-2xl p-6 text-white focus:ring-4 ring-emerald-500/40 outline-none text-xl font-bold">
+                        </div>
                         <select id="org-type" class="w-full bg-slate-900 border border-white/20 rounded-2xl p-6 text-white mb-8 focus:ring-4 ring-emerald-500/40 outline-none text-xl font-bold">
                             <option value="Enterprise HQ">Enterprise HQ</option>
                             <option value="Academic Institution">Academic Institution</option>
@@ -519,47 +523,101 @@
             trigger.innerText = "Deployment Complete";
         }
 
-        async function callGemini(prompt, systemPrompt) {
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            try {
-                const response = await fetch(endpoint, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] }
-                    })
-                });
-                const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || "Engine response error.";
-            } catch (e) { return "Core connection failed."; }
-        }
-
         async function generatePolicy() {
             const org = document.getElementById('org-type').value;
+            const targetOrg = document.getElementById('target-org-name').value || "The Client Entity";
             const btn = document.getElementById('policy-btn');
             const res = document.getElementById('policy-result');
             
             btn.disabled = true;
             btn.innerHTML = '<div class="loader w-8 h-8 border-4 border-t-transparent rounded-full mx-auto"></div>';
             res.classList.remove('hidden');
-            res.innerHTML = '<p class="animate-pulse text-emerald-400 font-black text-center tracking-widest text-sm uppercase">Voxeon AI Core Drafting...</p>';
+            res.innerHTML = '<p class="animate-pulse text-emerald-400 font-black text-center tracking-widest text-sm uppercase">Voxeon AI Core Drafting Legal Protocol...</p>';
 
-            const sys = "You are the Lead AI Developer at Voxeon Labs. You represent a high-tech student-led startup.";
-            const user = `Generate a modern attendance protocol for ${org}. Emphasize facial recognition transparency and security. Use technical bullet points.`;
+            const systemPrompt = "You are the Chief Legal AI Architect at Voxeon Labs. You draft legally-binding technology implementation policies for student-led AI initiatives.";
+            const userPrompt = `Draft a formal AI Attendance Policy Agreement between Voxeon Labs (The Provider) and ${targetOrg} (The Client). This is for a ${org} environment. Include specific clauses for data privacy, edge-computing verification, and punctuality thresholds. 
 
-            const result = await callGemini(user, sys);
-            res.innerHTML = `<div class="prose prose-invert max-w-none text-slate-200 leading-loose text-lg">${result.replace(/\n/g, '<br>')}</div>`;
-            btn.disabled = false;
-            btn.innerText = "Regenerate Core Logic ✨";
+            CRITICAL: The document MUST end with a formal signature block for the Voxeon Labs CEO and placeholders for the Client's representative. Use professional, futuristic legal tone.`;
+
+            try {
+                const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] }
+                };
+
+                const data = await fetchWithRetry(endpoint, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!resultText) throw new Error("No response from AI.");
+
+                const formattedHtml = resultText
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-emerald-400">$1</strong>')
+                    .replace(/\n/g, '<br>');
+
+                const signatureBlock = `
+                    <div class="mt-16 pt-12 border-t border-emerald-500/30 grid grid-cols-2 gap-12">
+                        <div class="space-y-4">
+                            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-black">Authorized Signatory - Provider</p>
+                            <div class="py-4 font-orbitron italic text-emerald-400 border-b border-emerald-500/50">
+                                Voxeon Labs CEO - Student Initiative Lead
+                            </div>
+                            <p class="text-xs font-bold text-white uppercase">Voxeon Labs R&D</p>
+                        </div>
+                        <div class="space-y-4">
+                            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-black">Authorized Signatory - Client</p>
+                            <div class="py-4 text-slate-600 italic border-b border-white/20">
+                                [Digital Signature Required]
+                            </div>
+                            <p class="text-xs font-bold text-white uppercase">${targetOrg}</p>
+                        </div>
+                    </div>
+                    <div class="mt-10 text-center">
+                         <p class="text-[9px] text-slate-600 uppercase font-black tracking-widest">Technically Verified by Voxeon AI Core • CC: Thrissur R&D Office</p>
+                    </div>
+                `;
+
+                res.innerHTML = `
+                    <div class="prose prose-invert max-w-none text-slate-200 leading-loose text-lg font-medium">
+                        <div class="text-center mb-10">
+                            <i class="fa-solid fa-expand text-emerald-500 text-5xl mb-4"></i>
+                            <h2 class="text-3xl font-orbitron font-black uppercase text-white tracking-tighter">Voxeon Protocol v2.5</h2>
+                        </div>
+                        ${formattedHtml}
+                        ${signatureBlock}
+                    </div>`;
+            } catch (error) {
+                res.innerHTML = `
+                    <div class="text-center space-y-4">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-500 text-4xl"></i>
+                        <p class="text-rose-400 font-bold uppercase tracking-widest">Legal Core Timeout</p>
+                        <p class="text-slate-400 text-sm">Our Legal Engine is under maintenance. Please try again.</p>
+                    </div>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Regenerate Contract ✨";
+            }
         }
 
-        function redirectToPhotoScan() {
-            // Logic to redirect to the photo scanning section
-            window.location.href = '#photo-scan';
+        // Retry mechanism for API calls
+        async function fetchWithRetry(url, options, retries = 5, backoff = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                if (retries > 0) {
+                    await new Promise(resolve => setTimeout(resolve, backoff));
+                    return fetchWithRetry(url, options, retries - 1, backoff * 2);
+                }
+                throw error;
+            }
         }
-
-        document.getElementById('sort-trigger').addEventListener('click', redirectToPhotoScan);
 
         window.onload = function() {
             resetLab();
