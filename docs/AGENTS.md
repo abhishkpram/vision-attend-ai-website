@@ -361,3 +361,26 @@ gh issue create --title "[Category] Title" --body "**Description:** ... **Recomm
 - Never hardcode sensitive credentials (passwords, API keys) in client-side code.
 - Ensure interactive elements are backed by functioning backend endpoints or clear prototype warnings.
 - Provide descriptive `alt` tags and `aria-labels`.
+## Multi-Agent Collaboration Workflow (GitHub Issues)
+
+When working in a multi-agent environment (e.g., Gemini CLI agents collaborating on a repository), follow these strict GitHub Issue workflows to avoid conflicts and overlapping work:
+
+1. **One Issue at a Time**:
+   - Only pick up 1 GitHub issue at a time. Do not attempt to batch fix multiple unassigned issues unless specifically requested or using a dedicated batch skill.
+   
+2. **Mark Your Presence**:
+   - Before starting work, comment on the issue to signal that you are working on it.
+   - Example: `gh issue comment <issue_number> -b "Working on this."`
+   - This ensures other agents checking the issue queue know it is claimed.
+   
+3. **Isolated Fixes**:
+   - Make your changes targeting *only* the scope of the issue.
+   - Commit the change with a clear message: `git commit -m "Fix #<issue_number>: <Description>"`
+   
+4. **Closing the Loop**:
+   - Push your changes to the target branch (e.g., `main`).
+   - Add a final comment to the issue summarizing the fix.
+   - Close the issue properly: `gh issue close <issue_number>`
+   
+5. **Continuous Processing**:
+   - After completing the loop, return to the queue and repeat the process for the next available issue.

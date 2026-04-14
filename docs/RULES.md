@@ -412,3 +412,16 @@ These rules are enforced through:
 - **Questions**: Email voxeonlabs@gmail.com
 - **Exceptions**: Document in PR with justification
 - **Updates**: Update this file, create ticket for discussion
+
+### Rule 13: Accessibility and UI Patterns
+- **Semantic HTML:** Always use semantic elements (`<main>`, `<section>`, `<nav>`, `<footer>`) to organize the page structure.
+- **Images:** All `<img>` tags must have descriptive `alt` text. Use empty `alt=""` only if the image is purely decorative.
+- **Interactive Elements:** Icon-only links and buttons must have clear `aria-label` attributes.
+- **Event Listeners:** Do not use inline event handlers (e.g., `onclick="doSomething()"`). Instead, use `addEventListener` in external JavaScript files.
+- **Links:** For non-navigational anchor tags that trigger JavaScript actions, use `href="javascript:void(0)"` or prefer `<button>` over `<a>`. Avoid `href="#"` as it causes page jumping.
+
+### Rule 14: Client-Side Persistence
+- When mimicking backend functionality (like storing form submissions or settings), use `localStorage` or `sessionStorage` to ensure data persists across page reloads.
+
+### Rule 15: PDF Generation
+- When generating PDFs from complex HTML DOM elements, prefer libraries like `html2canvas` combined with `jsPDF` (`doc.html()`) to capture styling correctly, rather than passing raw HTML strings to `doc.text()` or `doc.splitTextToSize()`.

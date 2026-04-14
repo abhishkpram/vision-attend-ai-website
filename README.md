@@ -34,11 +34,12 @@ vision-attend-ai-website/
 ├── favicon.jpg          # Browser tab icon (Voxeon Labs logo)
 ├── logo.svg            # Archived SVG logo (deprecated)
 ├── README.md           # This file
-├── AGENTS.md           # AI agent skills and procedures
-├── ARCHITECTURE.md     # Design system and technical architecture
-├── STYLING_GUIDE.md    # CSS patterns and Tailwind configuration
-├── DEVELOPMENT.md      # Development workflow and contribution guide
-└── RULES.md            # Repository rules and conventions
+└── docs/               # Documentation directory
+    ├── AGENTS.md       # AI agent skills and procedures
+    ├── ARCHITECTURE.md # Design system and technical architecture
+    ├── STYLING_GUIDE.md# CSS patterns and Tailwind configuration
+    ├── DEVELOPMENT.md  # Development workflow and contribution guide
+    └── RULES.md        # Repository rules and conventions
 ```
 
 ## Setup & Development
@@ -90,4 +91,4 @@ vision-attend-ai-website/
 
 ## Contributing
 
-See [DEVELOPMENT.md](DEVELOPMENT.md) for contribution guidelines and [AGENTS.md](AGENTS.md) for AI agent skill documentation.
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for contribution guidelines and [docs/AGENTS.md](docs/AGENTS.md) for AI agent skill documentation.
