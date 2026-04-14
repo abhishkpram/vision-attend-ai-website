@@ -192,31 +192,33 @@
 @media (max-width: 768px) {
     #nav-links:not(.hidden) {
         display: flex !important;
-        background: rgba(2, 6, 23, 0.98) !important;
-        backdrop-filter: blur(24px) !important;
+        background-color: #020617 !important;
+        background-image: none !important;
+        opacity: 1 !important;
     }
     
     #nav-links .flex {
         width: 100%;
-        padding-top: 6rem;
+        padding-top: 1rem;
     }
     
     #nav-links a {
         padding-top: 1.5rem !important;
         padding-bottom: 1.5rem !important;
-        font-size: 1.125rem !important;
+        font-size: 1.25rem !important;
         letter-spacing: 0.15em !important;
+        background-color: transparent !important;
     }
     
     #nav-links a:not(:last-child) {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
     }
     
     #nav-links .btn-primary {
         margin-top: 2rem !important;
         padding-top: 1.25rem !important;
         padding-bottom: 1.25rem !important;
-        font-size: 1rem !important;
+        font-size: 1.1rem !important;
     }
 }
 
