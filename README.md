@@ -34,14 +34,18 @@ vision-attend-ai-website/
 ├── favicon.jpg          # Browser tab icon (Voxeon Labs logo)
 ├── logo.svg            # Archived SVG logo (deprecated)
 ├── README.md           # This file
-└── docs/               # Documentation directory
-    ├── AGENTS.md       # AI agent skills and procedures
-    ├── ARCHITECTURE.md # Design system and technical architecture
-    ├── STYLING_GUIDE.md# CSS patterns and Tailwind configuration
-    ├── DEVELOPMENT.md  # Development workflow and contribution guide
-    ├── RULES.md        # Repository rules and conventions
-    ├── BATCH_ISSUE_CREATOR.md  # Batch issue creation workflow
-    └── MULTI_AGENT_WORKFLOW.md # Standardized workflow for all multi-agent (Claude, Qwen, Gemini, etc.) tasks
+└── .agents/             # AI Agent knowledge and instructions
+    ├── docs/           # Documentation and design system
+    │   ├── AGENTS.md
+    │   ├── ARCHITECTURE.md
+    │   ├── DEVELOPMENT.md
+    │   ├── RULES.md
+    │   └── STYLING_GUIDE.md
+    └── skills/         # Standardized agent workflows
+        ├── batch-issue-creator/
+        │   └── INSTRUCTIONS.md
+        └── multi-agent-workflow/
+            └── INSTRUCTIONS.md
 ```
 
 ## Setup & Development
@@ -93,4 +97,4 @@ vision-attend-ai-website/
 
 ## Contributing
 
-See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for contribution guidelines and [docs/AGENTS.md](docs/AGENTS.md) for AI agent skill documentation.
+See [.agents/docs/DEVELOPMENT.md](.agents/docs/DEVELOPMENT.md) for contribution guidelines and [.agents/docs/AGENTS.md](.agents/docs/AGENTS.md) for AI agent skill documentation.
