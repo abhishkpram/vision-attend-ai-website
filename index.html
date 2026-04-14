@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
     
     <style>
         :root {
@@ -30,9 +31,10 @@
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
 
         h1, h2, h3, h4 {
-            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.6);
             letter-spacing: -0.01em;
             color: #ffffff;
+            font-weight: 900;
         }
 
         .glass-card {
@@ -51,16 +53,26 @@
         }
 
         .hero-gradient {
-            background: 
-                radial-gradient(circle at 15% 15%, rgba(0, 240, 111, 0.18) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(0, 229, 255, 0.12) 0%, transparent 45%);
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 240, 111, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(0, 229, 255, 0.06) 0%, transparent 45%);
         }
 
         .text-gradient {
             background: linear-gradient(135deg, #ffffff 15%, var(--accent-green) 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
+            filter: drop-shadow(0 4px 12px rgba(0, 240, 111, 0.4)) drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+        }
+
+        .accent-text {
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            letter-spacing: 0.02em;
         }
 
         .btn-primary {
@@ -133,6 +145,26 @@
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-green); }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .logo-container img {
+            width: 54px;
+            height: 54px;
+            flex-shrink: 0;
+        }
+        
+        .brand-text {
+            white-space: nowrap;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            font-weight: 900;
+        }
+
         .input-field {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.1);
@@ -152,15 +184,11 @@
     <!-- Navbar -->
     <nav class="fixed w-full z-[100] bg-slate-950/95 backdrop-blur-3xl border-b border-white/10 py-5">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="w-11 h-11 bg-emerald-500 rounded-xl flex items-center justify-center shadow-[0_0_25px_rgba(16,185,129,0.5)]">
-                    <i class="fa-solid fa-expand text-black text-xl"></i>
-                </div>
-                <span class="font-orbitron font-bold text-2xl tracking-tighter text-white">VISION<span class="text-emerald-400">ATTEND</span></span>
+            <div class="logo-container">
+                <span class="font-orbitron font-bold brand-text text-white">VISION<span class="text-emerald-400">ATTEND</span></span>
             </div>
             
-            <div class="hidden md:flex items-center gap-10 text-sm font-black text-slate-100 uppercase tracking-widest">
-                <a href="#" onclick="openAdminSection(); return false;" class="hover:text-emerald-400 transition-colors">VISION ATTEND</a>
+            <div class="hidden md:flex items-center gap-12 text-sm font-black text-slate-100 uppercase tracking-widest">
                 <a href="#about-voxeon" class="hover:text-emerald-400 transition-colors">Voxeon Labs</a>
                 <a href="#sorting-lab" class="hover:text-emerald-400 transition-colors">Sorting Lab</a>
                 <a href="#ai-hub" class="hover:text-emerald-400 transition-colors">AI Hub</a>
@@ -182,8 +210,8 @@
                     <span class="text-gradient">PRECISION.</span>
                 </h1>
                 
-                <p class="text-2xl text-slate-200 max-w-xl leading-relaxed font-semibold">
-                    Automated, low-latency facial tracking for the modern enterprise. Built for <span class="text-emerald-400">universal connectivity.</span>
+                <p class="text-2xl text-slate-100 max-w-xl leading-relaxed font-semibold" style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);">
+                    Automated, low-latency facial tracking for the modern enterprise. Built for <span class="text-emerald-400 accent-text">universal connectivity.</span>
                 </p>
                 
                 <div class="flex flex-wrap gap-8 pt-6">
@@ -197,7 +225,7 @@
             </div>
 
             <div class="relative group hidden lg:block">
-                <div class="absolute -inset-24 bg-emerald-500/15 blur-[180px] rounded-full opacity-70"></div>
+                <div class="absolute -inset-24 bg-emerald-500/8 blur-[180px] rounded-full opacity-70"></div>
                 <div class="relative rounded-[4rem] overflow-hidden border border-white/30 glass-card">
                     <div class="scanner-line"></div>
                     <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop" alt="Cyber Security" class="w-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 opacity-60 group-hover:opacity-100">
@@ -207,7 +235,7 @@
     </section>
 
     <!-- About Voxeon Labs Section (Tabs) -->
-    <section id="about-voxeon" class="py-32 bg-slate-900/60 relative">
+    <section id="about-voxeon" class="py-32 bg-black/80 relative">
         <div class="container mx-auto px-6 max-w-6xl">
             <div class="text-center mb-20">
                 <span class="text-emerald-400 font-black tracking-[0.4em] uppercase text-xs">Innovation Hub</span>
@@ -232,7 +260,7 @@
                 </div>
                 
                 <!-- Tab Content Area -->
-                <div class="md:w-2/3 p-12 flex flex-col justify-center bg-gradient-to-br from-transparent to-emerald-500/5">
+                <div class="md:w-2/3 p-12 flex flex-col justify-center bg-gradient-to-br from-black/50 to-emerald-500/10">
                     <div id="tab-content" class="space-y-8 transition-opacity duration-300">
                         <h3 id="tab-title" class="text-4xl font-orbitron font-black text-white uppercase tracking-tight"></h3>
                         <div id="tab-html" class="text-slate-200 text-lg leading-relaxed font-medium"></div>
@@ -262,17 +290,17 @@
                     </button>
                 </div>
 
-                <div class="glass-card p-10 rounded-[2.5rem] border-t-[10px] border-emerald-500 bg-emerald-500/5">
+                <div class="glass-card p-10 rounded-[2.5rem] border-t-[10px] border-emerald-500 bg-emerald-500/10">
                     <h3 class="text-emerald-400 font-black uppercase text-sm tracking-widest mb-10"><i class="fa-solid fa-circle-check mr-3"></i> On Time</h3>
                     <div id="bucket-ontime" class="space-y-5 min-h-[300px]"></div>
                 </div>
 
-                <div class="glass-card p-10 rounded-[2.5rem] border-t-[10px] border-yellow-500 bg-yellow-500/5">
+                <div class="glass-card p-10 rounded-[2.5rem] border-t-[10px] border-yellow-500 bg-yellow-500/10">
                     <h3 class="text-yellow-400 font-black uppercase text-sm tracking-widest mb-10"><i class="fa-solid fa-clock mr-3"></i> Grace</h3>
                     <div id="bucket-grace" class="space-y-5 min-h-[300px]"></div>
                 </div>
 
-                <div class="glass-card p-10 rounded-[2.5rem] border-t-[10px] border-rose-500 bg-rose-500/5">
+                <div class="glass-card p-10 rounded-[2.5rem] border-t-[10px] border-rose-500 bg-rose-500/10">
                     <h3 class="text-rose-400 font-black uppercase text-sm tracking-widest mb-10"><i class="fa-solid fa-circle-exclamation mr-3"></i> Late</h3>
                     <div id="bucket-late" class="space-y-5 min-h-[300px]"></div>
                 </div>
@@ -282,7 +310,7 @@
 
     <!-- AI Hub Section -->
     <section id="ai-hub" class="py-32 bg-slate-950/90 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-[50%] h-full bg-emerald-500/5 blur-[120px] rounded-full"></div>
+        <div class="absolute top-0 right-0 w-[50%] h-full bg-emerald-500/3 blur-[120px] rounded-full"></div>
         <div class="container mx-auto px-6">
             <div class="flex flex-col lg:flex-row gap-20 items-center">
                 <div class="lg:w-1/2 space-y-12">
@@ -292,9 +320,9 @@
                     <div class="glass-card p-12 rounded-[4rem] border-emerald-500/20">
                         <div class="space-y-4 mb-8">
                             <label class="text-xs font-black uppercase tracking-widest text-emerald-400">Target Organization Name</label>
-                            <input type="text" id="target-org-name" placeholder="Client Entity Name" class="w-full bg-slate-900 border border-white/20 rounded-2xl p-6 text-white focus:ring-4 ring-emerald-500/40 outline-none text-xl font-bold">
+                            <input type="text" id="target-org-name" placeholder="Client Entity Name" class="w-full bg-slate-950 border border-white/20 rounded-2xl p-6 text-white focus:ring-4 ring-emerald-500/40 outline-none text-xl font-bold">
                         </div>
-                        <select id="org-type" class="w-full bg-slate-900 border border-white/20 rounded-2xl p-6 text-white mb-8 focus:ring-4 ring-emerald-500/40 outline-none text-xl font-bold">
+                        <select id="org-type" class="w-full bg-slate-950 border border-white/20 rounded-2xl p-6 text-white mb-8 focus:ring-4 ring-emerald-500/40 outline-none text-xl font-bold">
                             <option value="Enterprise HQ">Enterprise HQ</option>
                             <option value="Academic Institution">Academic Institution</option>
                             <option value="High-Security Hub">High-Security Hub</option>
@@ -303,13 +331,13 @@
                     </div>
                 </div>
                 
-                <div id="policy-result" class="lg:w-1/2 min-h-[550px] glass-card p-12 rounded-[4rem] border-white/20 h-[650px] overflow-y-auto hidden bg-black/60 shadow-2xl"></div>
+                <div id="policy-result" class="lg:w-1/2 min-h-[550px] glass-card p-12 rounded-[4rem] border-white/20 h-[650px] overflow-y-auto hidden bg-black/95 shadow-2xl"></div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-32 bg-slate-900/40 relative">
+    <section id="contact" class="py-32 bg-black/70 relative">
         <div class="container mx-auto px-6 max-w-6xl">
             <div class="text-center mb-20">
                 <span class="text-emerald-400 font-black tracking-[0.4em] uppercase text-xs">Request Access</span>
@@ -367,7 +395,7 @@
                     </div>
                 </div>
 
-                <div class="glass-card p-12 rounded-[3rem] border-white/5 bg-slate-950/40">
+                <div class="glass-card p-12 rounded-[3rem] border-white/5 bg-slate-950/90">
                     <form id="demo-request-form" class="space-y-6" onsubmit="handleDemoRequest(event)">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="space-y-2">
