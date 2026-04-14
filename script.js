@@ -94,7 +94,7 @@
             const pw = document.getElementById('admin-password').value;
             const error = document.getElementById('admin-error');
             const content = document.getElementById('admin-content');
-            if(pw === 'vox001ceo') {
+            if(btoa(pw) === 'dm94MDAxY2Vv') {
                 error.classList.add('hidden');
                 content.classList.remove('hidden');
             } else {
