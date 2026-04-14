@@ -108,7 +108,7 @@
             requestList.innerHTML = 'No requests yet.';
         }
 
-        function handleDemoRequest(event) {
+        async function handleDemoRequest(event) {
             event.preventDefault();
             const name = document.getElementById('request-name').value.trim();
             const org = document.getElementById('request-org').value.trim();
@@ -116,23 +116,49 @@
             const interest = document.getElementById('request-interest').value;
             const message = document.getElementById('request-message').value.trim();
             const requestList = document.getElementById('demo-requests');
+            const submitBtn = event.target.querySelector('button[type="submit"]');
 
             if (!name || !org || !email || !message) {
                 alert('Please fill in all fields of the request form.');
                 return;
             }
 
-            const item = document.createElement('li');
-            item.className = 'p-3 rounded-lg bg-slate-900/80 border border-emerald-500/20';
-            item.innerHTML = `<strong>${name}</strong> (${org}, ${email})<br><span class="text-slate-400">${interest}</span><br>${message}`;
-
-            if (requestList.innerText.trim().toLowerCase() === 'no requests yet.') {
-                requestList.innerText = '';
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
             }
 
-            requestList.prepend(item);
-            alert('Transmission Received. Our AI Core will process your request.');
-            document.getElementById('demo-request-form').reset();
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Processing...';
+
+            try {
+                const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, org, email, interest, message })
+                });
+
+                if (!response.ok) throw new Error('Server error');
+
+                const item = document.createElement('li');
+                item.className = 'p-3 rounded-lg bg-slate-900/80 border border-emerald-500/20';
+                item.innerHTML = `<strong>${name}</strong> (${org}, ${email})<br><span class="text-slate-400">${interest}</span><br>${message}`;
+
+                if (requestList.innerText.trim().toLowerCase() === 'no requests yet.') {
+                    requestList.innerText = '';
+                }
+
+                requestList.prepend(item);
+                alert('Transmission Received. Our AI Core will process your request.');
+                document.getElementById('demo-request-form').reset();
+            } catch (error) {
+                alert('Failed to submit request. Please try again later.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
         }
 
         const staff = [
