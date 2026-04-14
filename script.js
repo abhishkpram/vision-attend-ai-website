@@ -307,49 +307,37 @@
                 </div>`;
 
             document.getElementById('download-agreement-btn').addEventListener('click', () => {
-                downloadAgreement(targetOrg, mockPolicy.replace(/<[^>]*>/g, ''), signatureBlock.replace(/<[^>]*>/g, ''));
+                downloadAgreement(targetOrg);
             });
 
             btn.disabled = false;
             btn.innerText = "Regenerate Contract ✨";
         }
 
-        function downloadAgreement(clientName, policyContent, signatureContent) {
-            const agreementText = `
-VOXEON PROTOCOL v2.5
-
-${policyContent}
-
-${signatureContent}
-
-Generated on: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
-Client: ${clientName}
-Provider: Voxeon Labs
-            `;
-
+        async function downloadAgreement(clientName) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'pt', format: 'a4' });
-            const lineHeight = 14;
-            const margin = 40;
-            const pageWidth = doc.internal.pageSize.getWidth() - margin * 2;
-            const lines = doc.splitTextToSize(agreementText, pageWidth);
+            const elementToPrint = document.getElementById('policy-result');
+            
+            const originalBtn = document.getElementById('download-agreement-btn');
+            if(originalBtn) originalBtn.style.display = 'none';
 
-            let y = 60;
-            doc.setFontSize(11);
-            doc.setTextColor(25, 25, 25);
-            doc.text('Voxeon Protocol v2.5', margin, y);
-            y += 30;
-
-            lines.forEach((line) => {
-                if (y > doc.internal.pageSize.getHeight() - 60) {
-                    doc.addPage();
-                    y = 60;
+            await doc.html(elementToPrint, {
+                callback: function (doc) {
+                    doc.save(`Voxeon_Agreement_${clientName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
+                    if(originalBtn) originalBtn.style.display = 'inline-block';
+                },
+                x: 10,
+                y: 10,
+                width: 575,
+                windowWidth: 800,
+                autoPaging: 'text',
+                html2canvas: {
+                    scale: 0.7,
+                    useCORS: true,
+                    backgroundColor: '#020617'
                 }
-                doc.text(line, margin, y);
-                y += lineHeight;
             });
-
-            doc.save(`Voxeon_Agreement_${clientName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
         }
 
         window.onload = function() {
