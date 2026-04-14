@@ -463,8 +463,10 @@ python -m SimpleHTTPServer
 
 ## Getting Help
 
-- Check [README.md](README.md) for project overview
+- Check [../../README.md](../../README.md) for project overview
 - Review [AGENTS.md](AGENTS.md) for coding skills
 - See [ARCHITECTURE.md](ARCHITECTURE.md) for design system
 - Read [STYLING_GUIDE.md](STYLING_GUIDE.md) for CSS patterns
+- See [RULES.md](RULES.md) for repository rules
+- Read [../skills/multi-agent-workflow/INSTRUCTIONS.md](../skills/multi-agent-workflow/INSTRUCTIONS.md) for multi-agent collaboration
 - Ask in pull request comments or email voxeonlabs@gmail.com

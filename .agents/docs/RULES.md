@@ -211,14 +211,15 @@ Example Skill Table of Contents:
 ## Documentation Rules
 
 ### Rule 15: Documentation Hierarchy
-All documentation must be present and current:
+All documentation must be present and current (located in `.agents/docs/`):
 
 1. **README.md** (Project overview, setup, features)
-2. **AGENTS.md** (Reusable skills, patterns, templates)
-3. **ARCHITECTURE.md** (Design system, data flow, components)
-4. **STYLING_GUIDE.md** (CSS patterns, color system, components)
-5. **DEVELOPMENT.md** (Contribution workflow, standards)
-6. **RULES.md** (This file, repository constraints)
+2. **AGENTS.md** (Reusable skills, patterns, templates) → `.agents/docs/AGENTS.md`
+3. **ARCHITECTURE.md** (Design system, data flow, components) → `.agents/docs/ARCHITECTURE.md`
+4. **STYLING_GUIDE.md** (CSS patterns, color system, components) → `.agents/docs/STYLING_GUIDE.md`
+5. **DEVELOPMENT.md** (Contribution workflow, standards) → `.agents/docs/DEVELOPMENT.md`
+6. **RULES.md** (This file, repository constraints) → `.agents/docs/RULES.md`
+7. **Skills** (Standardized workflows) → `.agents/skills/`
 
 **Rule**: Never skip documentation for new features
 
@@ -313,16 +314,18 @@ Before merging to main:
 \`\`\`
 vision-attend-ai-website/
 ├── index.html              # Main website (KEEP SINGLE FILE)
+├── styles.css              # External stylesheet
+├── script.js               # External JavaScript
 ├── favicon.jpg             # Browser tab icon
 ├── logo.svg                # Archived (deprecated)
-├── README.md               # Project overview
-├── .agents/                # AI Agent knowledge and instructions
-│   ├── docs/               # Documentation directory
-│   │   ├── AGENTS.md       # AI agent skills and procedures
-│   │   ├── ARCHITECTURE.md # Design system and technical architecture
-│   │   ├── STYLING_GUIDE.md# CSS patterns and Tailwind configuration
-│   │   ├── DEVELOPMENT.md  # Development workflow and contribution guide
-│   │   └── RULES.md        # Repository rules and conventions
+├── README.md               # Project overview & completed issues
+├── .agents/                # AI Agent knowledge and workflows
+│   ├── docs/               # Documentation files
+│   │   ├── AGENTS.md       # AI agent skills (< 100 lines each)
+│   │   ├── ARCHITECTURE.md # Design system
+│   │   ├── STYLING_GUIDE.md# CSS patterns
+│   │   ├── DEVELOPMENT.md  # Contribution guide
+│   │   └── RULES.md        # This file
 │   └── skills/             # Standardized agent workflows
 │       ├── batch-issue-creator/
 │       │   └── INSTRUCTIONS.md

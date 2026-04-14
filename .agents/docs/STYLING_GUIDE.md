@@ -42,15 +42,17 @@ Complete reference for Tailwind CSS patterns, custom styles, and design system i
 
 ### Font Sizes & Hierarchy
 
-| Element | Size | Weight | Class |
-|---------|------|--------|-------|
-| H1 (Hero) | 96px | 900 | `text-9xl font-black` |
-| H2 (Section) | 48px | 700 | `text-4xl font-bold` |
-| H3 (Subsection) | 36px | 700 | `text-3xl font-bold` |
-| H4 (Card Title) | 24px | 600 | `text-2xl font-semibold` |
-| Body (Default) | 16px | 400 | `text-base` |
-| Small (Caption) | 14px | 400 | `text-sm text-gray-400` |
-| Tiny (Hint) | 12px | 400 | `text-xs text-gray-500` |
+**Responsive sizes used throughout (mobile → desktop):**
+
+| Element | Mobile | Tablet | Desktop | Weight | Class |
+|---------|--------|--------|---------|--------|-------|
+| H1 (Hero) | text-5xl | md:text-7xl | lg:text-[10rem] | 900 | `font-black` |
+| H2 (Section) | text-3xl | md:text-5xl | lg:text-6xl | 900 | `font-black` |
+| H3 (Subsection) | text-2xl | md:text-3xl | lg:text-4xl | 900 | `font-black` |
+| H4 (Card Title) | text-lg | md:text-xl | lg:text-2xl | 700 | `font-bold` |
+| Body (Default) | text-base | md:text-lg | lg:text-xl | 400 | - |
+| Small (Caption) | text-xs | text-sm | - | 400 | `text-gray-400` |
+| Tiny (Hint) | text-[8px] | md:text-[10px] | - | 900 | `text-gray-500` |
 
 ### Line Height
 
@@ -58,6 +60,69 @@ Complete reference for Tailwind CSS patterns, custom styles, and design system i
 .heading { line-height: 1.1; }        /* Tight for impact */
 .body { line-height: 1.6; }           /* Relaxed for readability */
 .caption { line-height: 1.4; }        /* Medium for descriptions */
+```
+
+### Responsive Typography (Mobile-First)
+
+The application uses progressive font sizing for all sections:
+
+| Element | Mobile | Small | Tablet | Desktop |
+|---------|--------|-------|--------|---------|
+| Hero H1 | text-5xl | sm:text-6xl | md:text-7xl | lg:text-[10rem] |
+| Section H2 | text-3xl | - | md:text-5xl | lg:text-6xl |
+| Body | text-lg | - | md:text-xl | lg:text-2xl |
+
+**Pattern**: Always start with mobile size, add breakpoints up:
+```html
+<h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-[10rem]">Heading</h1>
+```
+
+## CSS Variables Reference
+
+All CSS variables are defined in `styles.css` `:root`:
+
+```css
+:root {
+    --accent-green: #00f06f;
+    --accent-green-rgb: 0, 240, 111;
+    --accent-cyan: #00e5ff;
+    --bg-dark: #020617;
+    --card-bg: rgba(15, 23, 42, 0.75);
+    --card-bg-hover: rgba(15, 23, 42, 0.95);
+    --transition-default: all 0.3s ease;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 25px 60px -10px rgba(var(--accent-green-rgb), 0.25);
+    --border-glass: 1px solid rgba(255, 255, 255, 0.12);
+}
+```
+
+**Usage**: Reference with `var(--variable-name)` in custom CSS:
+```css
+.glass-card {
+    background: var(--card-bg);
+    border: var(--border-glass);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-smooth);
+}
+```
+
+### Utility Classes (Custom CSS)
+
+```css
+/* Skip link for keyboard accessibility */
+.skip-link { /* hidden by default, visible on focus */ }
+
+/* Hide scrollbar while keeping scroll functionality */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Logo sizing in navbar */
+.logo-img { width: 54px; height: 54px; flex-shrink: 0; }
+
+/* Hero subtitle shadow */
+.hero-subtitle { text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7); }
 ```
 
 ## Component Patterns
