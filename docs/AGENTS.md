@@ -363,7 +363,7 @@ gh issue create --title "[Category] Title" --body "**Description:** ... **Recomm
 - Provide descriptive `alt` tags and `aria-labels`.
 ## Multi-Agent Collaboration Workflow (GitHub Issues)
 
-When working in a multi-agent environment (e.g., Gemini CLI agents collaborating on a repository), follow these strict GitHub Issue workflows to avoid conflicts and overlapping work:
+When working in a multi-agent environment (e.g., Claude, Codex, Qwen, Gemini, and other agents collaborating on a repository), follow these strict GitHub Issue workflows to avoid conflicts and overlapping work:
 
 1. **One Issue at a Time**:
    - Only pick up 1 GitHub issue at a time. Do not attempt to batch fix multiple unassigned issues unless specifically requested or using a dedicated batch skill.

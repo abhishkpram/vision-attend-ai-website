@@ -39,7 +39,8 @@ vision-attend-ai-website/
     ├── ARCHITECTURE.md # Design system and technical architecture
     ├── STYLING_GUIDE.md# CSS patterns and Tailwind configuration
     ├── DEVELOPMENT.md  # Development workflow and contribution guide
-    └── RULES.md        # Repository rules and conventions
+    ├── RULES.md        # Repository rules and conventions
+    └── MULTI_AGENT_WORKFLOW.md # Standardized workflow for all multi-agent (Claude, Qwen, Gemini, etc.) tasks
 ```
 
 ## Setup & Development

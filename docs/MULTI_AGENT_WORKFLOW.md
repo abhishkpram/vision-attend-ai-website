@@ -1,11 +1,6 @@
----
-name: multi-agent-workflow
-description: Use this skill when resolving GitHub issues in a multi-agent environment to ensure organized and conflict-free collaboration.
----
-
 # Multi-Agent Collaboration Workflow
 
-When working in a multi-agent environment (e.g., multiple AI agents collaborating on a repository by picking up GitHub issues), it is crucial to follow a strict workflow to avoid conflicts and overlapping work.
+When working in a multi-agent environment (e.g., multiple AI agents like Claude, Codex, Qwen, Gemini, etc., collaborating on a repository by picking up GitHub issues), it is crucial to follow a strict workflow to avoid conflicts and overlapping work.
 
 ## Workflow Rules
 
