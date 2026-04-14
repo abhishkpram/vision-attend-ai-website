@@ -300,11 +300,15 @@
                     ${mockPolicy}
                     ${signatureBlock}
                     <div class="text-center mt-12">
-                        <button onclick="downloadAgreement('${targetOrg.replace(/'/g, "\\'")}', '${mockPolicy.replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/<[^>]*>/g, '')}', '${signatureBlock.replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/<[^>]*>/g, '')}')" class="btn-primary px-8 py-4 rounded-2xl text-lg font-black">
+                        <button id="download-agreement-btn" class="btn-primary px-8 py-4 rounded-2xl text-lg font-black">
                             <i class="fa-solid fa-download mr-3"></i>Download Agreement
                         </button>
                     </div>
                 </div>`;
+
+            document.getElementById('download-agreement-btn').addEventListener('click', () => {
+                downloadAgreement(targetOrg, mockPolicy.replace(/<[^>]*>/g, ''), signatureBlock.replace(/<[^>]*>/g, ''));
+            });
 
             btn.disabled = false;
             btn.innerText = "Regenerate Contract ✨";
@@ -352,3 +356,28 @@ Provider: Voxeon Labs
             resetLab();
             switchTab('origin');
         };
+
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const attachListener = (id, event, handler) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener(event, handler);
+    };
+
+    attachListener('tab-btn-origin', 'click', () => switchTab('origin'));
+    attachListener('tab-btn-services', 'click', () => switchTab('services'));
+    attachListener('tab-btn-pricing', 'click', () => switchTab('pricing'));
+    attachListener('tab-btn-student', 'click', () => switchTab('student'));
+
+    attachListener('reset-lab-btn', 'click', resetLab);
+    attachListener('sort-trigger', 'click', startSorting);
+    attachListener('policy-btn', 'click', generatePolicy);
+    
+    attachListener('close-admin-btn', 'click', closeAdminSection);
+    attachListener('verify-admin-btn', 'click', (e) => { e.preventDefault(); verifyAdminPassword(); });
+    attachListener('clear-requests-btn', 'click', clearDemoRequests);
+    
+    attachListener('demo-request-form', 'submit', handleDemoRequest);
+
+});
