@@ -384,3 +384,65 @@ When working in a multi-agent environment (e.g., Claude, Codex, Qwen, Gemini, an
    
 5. **Continuous Processing**:
    - After completing the loop, return to the queue and repeat the process for the next available issue.
+
+---
+
+## Skill 14: Interactive Prototyping Patterns
+
+**Purpose**: Use specialized techniques to make static prototypes feel like functional web applications.
+
+**Scope**: Simulated APIs, client-side persistence, dynamic document generation, prototype security.
+
+**Procedures**:
+1. **Simulated Backend**: Use \`fetch()\` with mock endpoints (e.g., JSONPlaceholder) to demonstrate asynchronous request handling, loading states, and success/failure UI feedback.
+2. **Client-Side Persistence**: Use \`localStorage\` to store user-submitted data (like form responses or admin lists) so that the prototype maintains its state after a page refresh.
+3. **High-Fidelity PDF Generation**: Instead of passing raw strings to \`doc.text()\`, use \`doc.html()\` combined with \`html2canvas\` to capture the actual styled DOM element as a PDF.
+4. **Credential Obfuscation**: Avoid storing passwords in plain text in JavaScript. Use \`btoa()\` and \`atob()\` for simple Base64 obfuscation to prevent casual discovery while clearly stating its limitations.
+
+**Implementation Example (Persistence)**:
+\`\`\`javascript
+function saveRequest(data) {
+    const stored = JSON.parse(localStorage.getItem('myRequests') || '[]');
+    stored.unshift(data);
+    localStorage.setItem('myRequests', JSON.stringify(stored));
+}
+
+function loadRequests() {
+    return JSON.parse(localStorage.getItem('myRequests') || '[]');
+}
+\`\`\`
+
+**Validation**:
+- Prototype should maintain state after refresh (if persistence is used).
+- Async actions (like form submission) show clear loading indicators.
+- PDF exports accurately reflect the UI's layout and styling.
+
+---
+
+## Skill 15: Asset Consolidation & Maintainability
+
+**Purpose**: Move inline styles and scripts into external files to improve codebase organization and performance.
+
+**Scope**: CSS extraction, JavaScript extraction, linking external assets, modularity.
+
+**Procedures**:
+1. **CSS Extraction**: Extract styles from \`<style>\` tags into separate \`.css\` files (e.g., \`styles.css\`).
+2. **JavaScript Extraction**: Extract scripts from \`<script>\` tags into separate \`.js\` files (e.g., \`script.js\`).
+3. **Linking External Assets**: Link extracted files in the HTML \`<head>\` using \`<link rel="stylesheet" href="...">\` and at the end of the \`<body>\` using \`<script src="..."></script>\`.
+4. **Modularity**: Break down large scripts or styles into smaller, themed files if they grow beyond 500 lines for better maintainability.
+
+**Code Template (Linking)**:
+\`\`\`html
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Content -->
+    <script src="script.js"></script>
+</body>
+\`\`\`
+
+**Validation**:
+- No inline \`<style>\` or \`<script>\` tags should remain in the HTML file.
+- The page should look and function identically to the previous version with inline assets.
+- External files are clearly named and logically organized.

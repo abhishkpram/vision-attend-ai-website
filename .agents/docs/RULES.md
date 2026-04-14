@@ -413,6 +413,7 @@ These rules are enforced through:
 - **Exceptions**: Document in PR with justification
 - **Updates**: Update this file, create ticket for discussion
 
+
 ### Rule 13: Accessibility and UI Patterns
 - **Semantic HTML:** Always use semantic elements (`<main>`, `<section>`, `<nav>`, `<footer>`) to organize the page structure.
 - **Images:** All `<img>` tags must have descriptive `alt` text. Use empty `alt=""` only if the image is purely decorative.
@@ -425,3 +426,6 @@ These rules are enforced through:
 
 ### Rule 15: PDF Generation
 - When generating PDFs from complex HTML DOM elements, prefer libraries like `html2canvas` combined with `jsPDF` (`doc.html()`) to capture styling correctly, rather than passing raw HTML strings to `doc.text()` or `doc.splitTextToSize()`.
+
+### Rule 16: Prototype Security
+- Never store sensitive credentials in plain text. For prototypes, use at least simple obfuscation (e.g., Base64/btoa) to prevent casual discovery, and clearly document that it is NOT a secure production-grade solution.
